@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -47,6 +48,61 @@ Matrix Matrix::operator*(Matrix &m)
 			for (int j = 0; j < m.gRow(); j++)
 				newMatr[z][i] += vv[z][j] * m[j][i];
 	return newMatr;
+}
+
+Matrix Matrix::operator*(double val)
+{
+	Matrix m(gRow(), gCol());
+	for (int i = 0; i < gRow(); i++)
+		for (int j = 0; j < gCol(); j++)
+			m.vv[i][j] = vv[i][j] * val;
+	return m;
+}
+
+Matrix Matrix::operator/(double val)
+{
+	Matrix m(gRow(), gCol());
+	for (int i = 0; i < gRow(); i++)
+		for (int j = 0; j < gCol(); j++)
+			m.vv[i][j] = vv[i][j] / val;
+	return m;
+}
+
+Matrix Matrix::operator+(Matrix & m)
+{
+	Matrix m(gRow(), gCol());
+	for (int i = 0; i < gRow(); i++)
+		for (int j = 0; j < gCol(); j++)
+			m.vv[i][j] = vv[i][j] + m.vv[i][j];
+	return m;
+}
+
+Matrix Matrix::operator-(Matrix & m)
+{
+	Matrix m(gRow(), gCol());
+	for (int i = 0; i < gRow(); i++)
+		for (int j = 0; j < gCol(); j++)
+			m.vv[i][j] = vv[i][j] - m.vv[i][j];
+	return m;
+}
+
+double Matrix::getNorm()
+{
+	double ans = 0.0;
+	for (int i = 0; i < gRow(); i++)
+	{
+		double tmp = 0.0;
+		for (int j = 0; j < gCol(); j++)
+			tmp += abs(vv[i][j]);
+		ans = max(tmp, ans);
+	}
+	return ans;
+}
+
+void Matrix::substractRow(int i, int j, double val)
+{
+	for (int z = 0; z < gCol(); z++)
+		vv[i][z] -= vv[j][z] * val;
 }
 
 /*Matrix & Matrix::operator=(const Matrix & m)

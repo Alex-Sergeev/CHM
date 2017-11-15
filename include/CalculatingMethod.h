@@ -27,4 +27,5 @@ public:
 
 	virtual bool isReady();
 	virtual Matrix solve() = 0;
+	virtual void print();
 };
