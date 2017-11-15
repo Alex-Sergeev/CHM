@@ -1,15 +1,15 @@
 #include "Matrix.h"
 #include <iostream>
 using  namespace std;
-int main()
+void testMatrix()
 {
-	Matrix m(2,2);
+	Matrix m(2, 2);
 	m[1][1] = 1;
-	cout << m[1][1]<<'\n';
+	cout << m[1][1] << '\n';
 	Matrix a;
 	a = m;
 	m[1][1] = 2;
-	cout << a<< m;
+	cout << a << m;
 	Matrix a1(3, 1, 1.0), a2(1, 3, 1.0);
 	cout << a1*a2 << a2*a1;
 	Matrix A(3, 2), B(2, 3);
@@ -26,7 +26,11 @@ int main()
 	B[1][0] = 0;
 	B[1][1] = -1;
 	B[1][2] = 4;
-	cout <<'\n'<< A << '\n' << B << '\n';
+	cout << '\n' << A << '\n' << B << '\n';
 	cout << A*B;
+}
+int main()
+{
+	testMatrix();
 	return 0;
 }

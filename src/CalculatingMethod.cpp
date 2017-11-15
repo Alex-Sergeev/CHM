@@ -1,51 +1,51 @@
-#include "CalculatingMethod.h"
+#include "calculatingMethod.h"
 
-void calculatingMethod::setA(const Matrix& a)
+void CalculatingMethod::setA(const Matrix& a)
 {
 	A = a;
 }
 
-void calculatingMethod::setF(const Matrix & f)
+void CalculatingMethod::setF(const Matrix & f)
 {
 	this->f = f;
 }
 
-void calculatingMethod::setX(const Matrix & x)
+void CalculatingMethod::setX(const Matrix & x)
 {
 	this->x = x;
 }
 
-void calculatingMethod::setStep(int step)
+void CalculatingMethod::setStep(int step)
 {
 	this->step = step;
 }
 
-void calculatingMethod::setAccuracy(double accuracy)
+void CalculatingMethod::setAccuracy(double accuracy)
 {
 	this->accuracy = accuracy;
 }
 
-Matrix & calculatingMethod::getA()
+Matrix & CalculatingMethod::getA()
 {
 	return A;
 }
 
-Matrix & calculatingMethod::getF()
+Matrix & CalculatingMethod::getF()
 {
 	return f;
 }
 
-Matrix & calculatingMethod::getX()
+Matrix & CalculatingMethod::getX()
 {
 	return x;
 }
 
-int calculatingMethod::getStep()
+int CalculatingMethod::getStep() const
 {
 	return step;
 }
 
-const double calculatingMethod::getAccuracy()
+double CalculatingMethod::getAccuracy() const
 {
 	return accuracy;
 }

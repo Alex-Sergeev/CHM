@@ -1,15 +1,18 @@
 #pragma once
 #include "Matrix.h"
 
-class calculatingMethod
+class CalculatingMethod
 {
-private:
+protected:
 	Matrix A;
 	Matrix f;
 	Matrix x;
 	double accuracy;
-	int step;
+	int step = 0;
+	int maxStep = 1000;
 public:
+	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max) :A(aa), f(ff), x(xx), maxStep(max) {};
+	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, double aacuracy) : A(aa), f(ff), x(xx), accuracy(aacuracy){};
 	void setA(const Matrix &a);
 	void setF(const Matrix &f);
 	void setX(const Matrix &x);
@@ -19,8 +22,8 @@ public:
 	Matrix& getA();
 	Matrix& getF();
 	Matrix& getX();
-	int getStep(); const
-	double getAccuracy(); const
+	int getStep() const;
+	double getAccuracy() const;
 
 	virtual bool isReady() = 0;
 };

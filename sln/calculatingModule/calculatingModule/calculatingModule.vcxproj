@@ -134,10 +134,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\altTriang.h" />
     <ClInclude Include="..\..\..\include\CalculatingMethod.h" />
     <ClInclude Include="..\..\..\include\Matrix.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\altTriang.cpp" />
     <ClCompile Include="..\..\..\src\CalculatingMethod.cpp" />
     <ClCompile Include="..\..\..\src\Matrix.cpp" />
   </ItemGroup>
