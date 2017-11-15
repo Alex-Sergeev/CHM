@@ -43,8 +43,8 @@ Matrix Matrix::operator*(Matrix &m)
 {
 	if (gCol() != m.gRow()) return Matrix();
 	Matrix newMatr(gRow(), m.gCol());
-	for (int z = 0; z < m.gCol(); z++)
-		for (int i = 0; i < gRow(); i++)
+	for (int z = 0; z < gRow(); z++)
+		for (int i = 0; i < m.gCol(); i++)
 			for (int j = 0; j < m.gRow(); j++)
 				newMatr[z][i] += vv[z][j] * m[j][i];
 	return newMatr;
@@ -70,20 +70,20 @@ Matrix Matrix::operator/(double val)
 
 Matrix Matrix::operator+(Matrix & m)
 {
-	Matrix m(gRow(), gCol());
+	Matrix ans(gRow(), gCol());
 	for (int i = 0; i < gRow(); i++)
 		for (int j = 0; j < gCol(); j++)
-			m.vv[i][j] = vv[i][j] + m.vv[i][j];
-	return m;
+			ans.vv[i][j] = vv[i][j] + m.vv[i][j];
+	return ans;
 }
 
 Matrix Matrix::operator-(Matrix & m)
 {
-	Matrix m(gRow(), gCol());
+	Matrix ans(gRow(), gCol());
 	for (int i = 0; i < gRow(); i++)
 		for (int j = 0; j < gCol(); j++)
-			m.vv[i][j] = vv[i][j] - m.vv[i][j];
-	return m;
+			ans.vv[i][j] = vv[i][j] - m.vv[i][j];
+	return ans;
 }
 
 double Matrix::getNorm()
@@ -122,5 +122,6 @@ std::ostream & operator<<(std::ostream & os, Matrix & m)
 			os << m[i][j] << ' ';
 		os << '\n';
 	}
+	os << '\n';
 	return os;
 }

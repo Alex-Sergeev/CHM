@@ -11,8 +11,8 @@ protected:
 	int step = 0;
 	int maxStep = 1000;
 public:
-	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max) :A(aa), f(ff), x(xx), maxStep(max) {};
-	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, double aacuracy) : A(aa), f(ff), x(xx), accuracy(aacuracy){};
+	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max) :A(aa), f(ff), maxStep(max) {};
+	CalculatingMethod(const Matrix &aa, const Matrix &ff, double aacuracy) : A(aa), f(ff), accuracy(aacuracy){};
 	void setA(const Matrix &a);
 	void setF(const Matrix &f);
 	void setX(const Matrix &x);
@@ -25,7 +25,7 @@ public:
 	int getStep() const;
 	double getAccuracy() const;
 
-	virtual bool isReady();
+	//virtual bool isReady();
 	virtual Matrix solve() = 0;
-	virtual void print();
+	//virtual void print();
 };
