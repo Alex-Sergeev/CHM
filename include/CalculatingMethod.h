@@ -25,5 +25,6 @@ public:
 	int getStep() const;
 	double getAccuracy() const;
 
-	virtual bool isReady() = 0;
+	virtual bool isReady();
+	virtual Matrix solve() = 0;
 };

@@ -17,6 +17,7 @@ public:
 	Matrix operator + (Matrix& m);
 	Matrix operator - (Matrix& m);
 	//Matrix& operator = (const Matrix& m);
+	double getNorm();
 
 	friend std::ostream& operator<<(std::ostream& os, Matrix& m);
 };
