@@ -105,6 +105,21 @@ void Matrix::substractRow(int i, int j, double val)
 		vv[i][z] -= vv[j][z] * val;
 }
 
+void Matrix::swapRow()
+{
+	Matrix m(*this);
+	for (int i = 0; i < gRow(); i++)
+		vv[i] = m[gRow() - 1 - i];
+}
+
+Matrix Matrix::createE(int i)
+{
+	Matrix E(i, i);
+	for (int i = 0; i < E.gRow(); i++)
+		E[i][i] = 1.0;
+	return E;
+}
+
 /*Matrix & Matrix::operator=(const Matrix & m)
 {
 	if (&m == this) return *this;

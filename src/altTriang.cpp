@@ -1,4 +1,5 @@
 #include "altTriang.h"
+#include "GaussMethod.h"
 #include <algorithm>
 using namespace std;
 
@@ -39,14 +40,20 @@ void AltTriang::preSolve(double &omega, double &tau, double &xi, Matrix &R, Matr
 Matrix AltTriang::solve()
 {
 	double omega, tau, xi;
-	Matrix R, Rt, B, x0(A.gRow(), 1), x(A.gRow(), 1), fi(A.gRow(), 1);
+	Matrix R, Rt, B, x(A.gRow(), 1), fi, xHalf;
 	preSolve(omega, tau, xi, R, Rt, A, B);
 	Matrix E = Matrix::createE(A.gRow());
+	Matrix tmp2 = f*tau;
+	Matrix halfX = (E + Rt*omega);
+	Matrix fullX = (E + R*omega);
 	for (int i = 0; i < maxStep; i++)
 	{
-		Matrix tmp0= B*x0, tmp1 = A*x0*tau, tmp2 = f*tau;
+		Matrix tmp0= B*x, tmp1 = A*x*tau;
 		fi = tmp0 - tmp1 + tmp2;
-
+		//solve1
+		xHalf = GaussMethod::getSolveT(halfX, fi);
+		//solve2
+		x = GaussMethod::getSolve(fullX, xHalf);
 	}
 	return x;
 }

@@ -6,7 +6,12 @@ public:
 	void preSolve(double &omega, double &tau, double &xi, Matrix &R, Matrix &Rt, Matrix &A, Matrix &B);
 	Matrix solve();
 	Matrix solve(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max);
-	AltTriang(const Matrix &aa, const Matrix &ff, int max):CalculatingMethod(aa, ff, max){};
+	AltTriang(const Matrix &aa, const Matrix &ff, int max)
+	{
+		A = aa;
+		f = ff;
+		maxStep = max;
+	};
 protected:
 	double getGamma1(double delt, double xi);
 	double getGamma2(double delt, double Delt);

@@ -11,7 +11,8 @@ protected:
 	int step = 0;
 	int maxStep = 1000;
 public:
-	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max) :A(aa), f(ff), maxStep(max) {};
+	CalculatingMethod() {};
+	CalculatingMethod(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max) :A(aa), f(ff), maxStep(max){};
 	CalculatingMethod(const Matrix &aa, const Matrix &ff, double aacuracy) : A(aa), f(ff), accuracy(aacuracy){};
 	void setA(const Matrix &a);
 	void setF(const Matrix &f);
