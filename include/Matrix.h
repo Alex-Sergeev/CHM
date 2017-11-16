@@ -23,4 +23,5 @@ public:
 	static Matrix createE(int i);
 
 	friend std::ostream& operator<<(std::ostream& os, Matrix& m);
+	friend std::istream& operator>>(std::istream& is, Matrix& m);
 };
