@@ -69,7 +69,7 @@ double AltTriang::getGamma2(double delt, double Delt)
 }
 double AltTriang::getDelt(Matrix & A)
 {
-	return getR(A).getNorm()*getRt(A).getNorm()*4.0/A.getNorm();
+	return (getR(A)*getRt(A)).getNorm()*4.0/A.getNorm();
 }
 double AltTriang::getdelt(Matrix & A)
 {

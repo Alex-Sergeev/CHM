@@ -120,14 +120,6 @@ Matrix Matrix::createE(int i)
 	return E;
 }
 
-/*Matrix & Matrix::operator=(const Matrix & m)
-{
-	if (&m == this) return *this;
-	this->vv.clear();
-	vv = vector<vector<double>>(m.vv);
-	return *this;
-}*/
-
 std::ostream & operator<<(std::ostream & os, Matrix & m)
 {
 	if (m.gRow() == 0) os << 0;
@@ -139,4 +131,12 @@ std::ostream & operator<<(std::ostream & os, Matrix & m)
 	}
 	os << '\n';
 	return os;
+}
+
+std::istream & operator >> (std::istream & is, Matrix & m)
+{
+	for (int i = 0; i < m.gRow(); i++)
+		for (int j = 0; j < m.gCol(); j++)
+			is >> m[i][j];
+	return is;
 }
