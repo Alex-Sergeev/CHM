@@ -136,14 +136,20 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\altTriang.h" />
     <ClInclude Include="..\..\..\include\CalculatingMethod.h" />
+    <ClInclude Include="..\..\..\include\CramerMethod.h" />
     <ClInclude Include="..\..\..\include\GaussMethod.h" />
     <ClInclude Include="..\..\..\include\Matrix.h" />
+    <ClInclude Include="..\..\..\include\SeidelMethod.h" />
+    <ClInclude Include="..\..\..\include\SimpleIterationMethod.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\altTriang.cpp" />
     <ClCompile Include="..\..\..\src\CalculatingMethod.cpp" />
+    <ClCompile Include="..\..\..\src\CramerMethod.cpp" />
     <ClCompile Include="..\..\..\src\GaussMethod.cpp" />
     <ClCompile Include="..\..\..\src\Matrix.cpp" />
+    <ClCompile Include="..\..\..\src\SeidelMethod.cpp" />
+    <ClCompile Include="..\..\..\src\SimpleIterationMethod.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

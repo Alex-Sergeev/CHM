@@ -4,7 +4,8 @@ class GaussMethod : public CalculatingMethod
 {
 public:
 	Matrix solve();
-	Matrix static getTriangle(Matrix &A, Matrix &f);
+	void static setTriangle(Matrix &A, Matrix &f);
 	Matrix static getSolve(Matrix &A, Matrix &f);
 	Matrix static getSolveT(Matrix &A, Matrix &f);
+
 };

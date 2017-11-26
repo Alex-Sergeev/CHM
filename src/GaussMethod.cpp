@@ -1,13 +1,17 @@
 #include "GaussMethod.h"
-
 Matrix GaussMethod::solve()
 {
-	return Matrix();
+	Matrix tmpA = A, tmpF = f;
+	setTriangle(tmpA, tmpF);
+	return getSolve(tmpA, tmpF);
 }
 
-Matrix GaussMethod::getTriangle(Matrix &A, Matrix &f)
+// x x x 
+// 0 x x
+// 0 0 x
+void GaussMethod::setTriangle(Matrix &A, Matrix &f)
 {
-	for (int i = 0; i < A.gRow(); i++)
+	for (int i = 0; i < A.gRow() - 1; i++)
 	{
 		double max = A[i][i];
 		for (int j = i + 1; j < A.gRow(); j++)
@@ -21,28 +25,30 @@ Matrix GaussMethod::getTriangle(Matrix &A, Matrix &f)
 			throw "bad matix";
 		for (int j = i + 1; j < A.gRow(); j++)
 		{
-			A.substractRow(i, i, j, A[j][i] / A[i][i]);
-			f.substractRow(0, i, j, f[j][0] / f[i][0]);
+			double coef = A[j][i] / A[i][i];
+			A.substractRow(i, j, i, coef);
+			f.substractRow(0, j, i, coef);
 		}
 	}
-	return Matrix();
 }
-
-Matrix GaussMethod::getSolve(Matrix & A, Matrix & f)
+// x x x 
+// 0 x x
+// 0 0 x
+Matrix GaussMethod::getSolve(Matrix &A, Matrix & f)
 {
 	Matrix ans(A.gRow(), 1);
 	for (int i = A.gRow() - 1; i >= 0; i--)
 	{
 		double tmp = f[i][0];
-		for (int j = i; j < A.gRow(); j++)
-		{
+		for (int j = i + 1; j < A.gRow(); j++)
 			tmp -= A[i][j] * ans[j][0];
-		}
 		ans[i][0] = tmp / A[i][i];
 	}
 	return ans;
 }
-
+// x 0 0
+// x x 0
+// x x x
 Matrix GaussMethod::getSolveT(Matrix & A, Matrix & f)
 {
 	Matrix ans(A.gRow(), 1);
@@ -50,9 +56,7 @@ Matrix GaussMethod::getSolveT(Matrix & A, Matrix & f)
 	{
 		double tmp = f[i][0];
 		for (int j = 0; j < i; j++)
-		{
 			tmp -= A[i][j] * ans[j][0];
-		}
 		ans[i][0] = tmp / A[i][i];
 	}
 	return ans;
