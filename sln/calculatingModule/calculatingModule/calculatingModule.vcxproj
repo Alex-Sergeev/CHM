@@ -140,9 +140,9 @@
     <ClInclude Include="..\..\..\include\Matrix.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\include\GaussMethod.cpp" />
     <ClCompile Include="..\..\..\src\altTriang.cpp" />
     <ClCompile Include="..\..\..\src\CalculatingMethod.cpp" />
+    <ClCompile Include="..\..\..\src\GaussMethod.cpp" />
     <ClCompile Include="..\..\..\src\Matrix.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

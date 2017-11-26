@@ -18,9 +18,10 @@ public:
 	Matrix operator + (Matrix& m);
 	Matrix operator - (Matrix& m);
 	double getNorm();
-	void substractRow(int i, int j, double val);
-	void swapRow();
+	void substractRow(int start, int i, int j, double val);
+	void swapRow(int i, int j);
 	static Matrix createE(int i);
+	void read(int n, int m, std::istream& is);
 
 	friend std::ostream& operator<<(std::ostream& os, Matrix& m);
 	friend std::istream& operator>>(std::istream& is, Matrix& m);

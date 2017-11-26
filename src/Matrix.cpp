@@ -99,17 +99,15 @@ double Matrix::getNorm()
 	return ans;
 }
 
-void Matrix::substractRow(int i, int j, double val)
+void Matrix::substractRow(int start, int i, int j, double val)
 {
-	for (int z = 0; z < gCol(); z++)
+	for (int z = start; z < gCol(); z++)
 		vv[i][z] -= vv[j][z] * val;
 }
 
-void Matrix::swapRow()
+void Matrix::swapRow(int i, int j)
 {
-	Matrix m(*this);
-	for (int i = 0; i < gRow(); i++)
-		vv[i] = m[gRow() - 1 - i];
+	std::swap(vv[i], vv[j]);
 }
 
 Matrix Matrix::createE(int i)
@@ -118,6 +116,16 @@ Matrix Matrix::createE(int i)
 	for (int i = 0; i < E.gRow(); i++)
 		E[i][i] = 1.0;
 	return E;
+}
+
+void Matrix::read(int n, int m, std::istream& is)
+{
+	vv = vector<vector<double>>(n);
+	for (int i = 0; i < n; i++)
+		vv[i] = vector<double>(m);
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			is >> vv[i][j];
 }
 
 std::ostream & operator<<(std::ostream & os, Matrix & m)

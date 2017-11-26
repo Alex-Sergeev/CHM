@@ -41,7 +41,7 @@
     <ClCompile Include="..\..\..\src\altTriang.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\include\GaussMethod.cpp">
+    <ClCompile Include="..\..\..\src\GaussMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
