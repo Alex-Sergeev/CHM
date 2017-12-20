@@ -86,6 +86,11 @@ Matrix Matrix::operator-(Matrix & m)
 	return ans;
 }
 
+double& Matrix::vec(int i)
+{
+	return vv[0][i];
+}
+
 double Matrix::getNorm()
 {
 	double ans = 0.0;
@@ -117,6 +122,36 @@ Matrix Matrix::createE(int i)
 		E[i][i] = 1.0;
 	return E;
 }
+
+Matrix Matrix::createDiagDominMatrix(int n, int min, int max)
+{
+	Matrix m(n, n);
+	srand(0);
+	for (int i = 0; i < n; i++)
+	{
+		int sum = 0;
+		for (int j = 0; j < n; j++)
+			if (j != i)
+			{
+				int el = rand() % (max - min + 1) + min;
+				m[i][j] = el;
+				sum += abs(el);
+			}
+		m[i][i] = sum + rand() % (max - min + 1);
+	}
+	return m;
+}
+
+Matrix Matrix::createVector(int n, int min, int max)
+{
+	Matrix vec(n, 1);
+	srand(0);
+	for (int i = 0; i < n; i++)
+	{
+		int el = rand() % (max - min + 1) + min;
+		vec.vec(i) = el;
+	}
+	return vec;
 
 void Matrix::read(int n, int m, std::istream& is)
 {

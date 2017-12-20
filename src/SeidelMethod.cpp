@@ -1,6 +1,14 @@
 #include "..\include\SeidelMethod.h"
+#include "GaussMethod.h"
 
-Matrix SeidelMethod::solve()
+Matrix SeidelMethod::solve(int numIter)
 {
-	return Matrix();
+	Matrix x0(f.gRow(), 1), x1(f.gRow(), 1), f1 = f;
+	for (int i = 0; i < numIter; i++)
+	{
+		f1 = getF(A, x0, f);
+		x1 = GaussMethod::getSolve(A, f1);
+		x0 = x1;
+	}
+	return x1;
 }

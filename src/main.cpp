@@ -13,8 +13,9 @@ int main()
 
 	ReadSystem(is, A, f);
 	AltTriang sys(A, f, 25);
-	std::cout<<sys.solve();
+//	std::cout<<sys.solve();
 	GaussMethod::setTriangle(A, f);
-	cout << GaussMethod::getSolve(A, f);
+	cout << A;
+//	cout << GaussMethod::getSolve(A, f);
 	return 0;
 }

@@ -15,16 +15,6 @@ void CalculatingMethod::setX(const Matrix & x)
 	this->x = x;
 }
 
-void CalculatingMethod::setStep(int step)
-{
-	this->step = step;
-}
-
-void CalculatingMethod::setAccuracy(double accuracy)
-{
-	this->accuracy = accuracy;
-}
-
 Matrix & CalculatingMethod::getA()
 {
 	return A;
@@ -38,14 +28,4 @@ Matrix & CalculatingMethod::getF()
 Matrix & CalculatingMethod::getX()
 {
 	return x;
-}
-
-int CalculatingMethod::getStep() const
-{
-	return step;
-}
-
-double CalculatingMethod::getAccuracy() const
-{
-	return accuracy;
 }
