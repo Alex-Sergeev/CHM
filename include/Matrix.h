@@ -17,12 +17,15 @@ public:
 	Matrix operator / (double val);
 	Matrix operator + (Matrix& m);
 	Matrix operator - (Matrix& m);
+	double &vec(int i);
 	double getNorm();
 	void substractRow(int start, int i, int j, double val);
 	void swapRow(int i, int j);
 	static Matrix createE(int i);
-	void read(int n, int m, std::istream& is);
+	static Matrix createDiagDominMatrix(int n, int min, int max);
+	static Matrix createVector(int n, int min, int max);
 
+	void read(int n, int m, std::istream& is);
 	friend std::ostream& operator<<(std::ostream& os, Matrix& m);
 	friend std::istream& operator>>(std::istream& is, Matrix& m);
 };

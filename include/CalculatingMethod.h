@@ -15,6 +15,18 @@ public:
 	void setA(const Matrix &a);
 	void setF(const Matrix &f);
 	void setX(const Matrix &x);
+	bool needContinue(int i, int maxIter, double curAcc, double acc)
+	{
+		if (maxIter != 0)
+		{
+			return i < maxIter;
+		}
+		if (acc != 0)
+		{
+			return curAcc < acc;
+		}
+		return false;
+	}
 
 	Matrix& getA();
 	Matrix& getF();

@@ -23,6 +23,7 @@ Matrix AltTriang::getRt(Matrix &A)
 	return m;
 }
 
+
 void AltTriang::preSolve(double &omega, double &tau, double &xi, Matrix &R, Matrix &Rt, Matrix &A, Matrix &B)
 {
 	double delt = getdelt(A);

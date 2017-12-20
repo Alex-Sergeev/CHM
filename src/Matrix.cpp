@@ -152,6 +152,7 @@ Matrix Matrix::createVector(int n, int min, int max)
 		vec.vec(i) = el;
 	}
 	return vec;
+}
 
 void Matrix::read(int n, int m, std::istream& is)
 {
