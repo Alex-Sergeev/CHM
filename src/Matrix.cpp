@@ -86,10 +86,10 @@ Matrix Matrix::operator-(Matrix & m)
 	return ans;
 }
 
-double& Matrix::vec(int i)
+/*double& Matrix::vec(int i)
 {
-	return vv[0][i];
-}
+	return vv[i][0];
+}*/
 
 double Matrix::getNorm()
 {
@@ -149,9 +149,33 @@ Matrix Matrix::createVector(int n, int min, int max)
 	for (int i = 0; i < n; i++)
 	{
 		int el = rand() % (max - min + 1) + min;
-		vec.vec(i) = el;
+		vec[i][0] = el;
 	}
 	return vec;
+}
+
+Matrix Matrix::createSimmetricMatrix(int n, int min, int max)
+{
+	Matrix m(n, n);
+	srand(0);
+	for (int i = 0; i < n; i++)
+	{
+		int sum = 0;
+		for (int j = 0; j < n; j++)
+			if (j != i)
+			{
+				int el = rand() % (max - min + 1) + min;
+				m[i][j] = el;
+				sum += abs(el);
+			}
+		m[i][i] = sum + rand() % (max - min + 1);
+	}
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 0; j < i; j++)
+			m[i][j] = m[j][i];
+	}
+	return m;
 }
 
 void Matrix::read(int n, int m, std::istream& is)
@@ -167,11 +191,19 @@ void Matrix::read(int n, int m, std::istream& is)
 std::ostream & operator<<(std::ostream & os, Matrix & m)
 {
 	if (m.gRow() == 0) os << 0;
-	for (int i = 0; i < m.gRow(); i++)
+	if (m.gCol() != 1)
 	{
-		for (int j = 0; j < m.gCol(); j++)
-			os << m[i][j] << ' ';
-		os << '\n';
+		for (int i = 0; i < m.gRow(); i++)
+		{
+			for (int j = 0; j < m.gCol(); j++)
+				os << m[i][j] << ' ';
+			os << '\n';
+		}
+	}
+	else
+	{
+		for (int j = 0; j < m.gRow(); j++)
+			os << m[j][0] << ' ';
 	}
 	os << '\n';
 	return os;

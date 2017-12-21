@@ -4,8 +4,9 @@ class SeidelMethod : public CalculatingMethod
 {
 public:
 	Matrix solve(int numIter);
+	static Matrix getSolve(Matrix A, Matrix f, int numIteration);
 private:
-	Matrix getU(Matrix &m, Matrix &x, Matrix &f) //(0 x2) * -xx1 + f1 
+	static Matrix getU(Matrix &m, Matrix &x, Matrix &f) //(0 x2) * -xx1 + f1 
 	{											 //(0  0) * -xx2 + f2
 		int row = m.gRow();
 		int col = m.gCol();
@@ -18,7 +19,7 @@ private:
 		}
 		return newF;
 	}
-	Matrix getF(Matrix &m, Matrix &x, Matrix &f)
+	static Matrix getF(Matrix &m, Matrix &x, Matrix &f)
 	{
 		int row = m.gRow();
 		int col = m.gCol();

@@ -24,6 +24,7 @@ public:
 	static Matrix createE(int i);
 	static Matrix createDiagDominMatrix(int n, int min, int max);
 	static Matrix createVector(int n, int min, int max);
+	static Matrix createSimmetricMatrix(int n, int min, int max);
 
 	void read(int n, int m, std::istream& is);
 	friend std::ostream& operator<<(std::ostream& os, Matrix& m);

@@ -52,9 +52,30 @@ Matrix AltTriang::solve()
 		Matrix tmp0= B*x, tmp1 = A*x*tau;
 		fi = tmp0 - tmp1 + tmp2;
 		//solve1
-		xHalf = GaussMethod::getSolveT(halfX, fi);
+		xHalf = GaussMethod::solveTriangleT(halfX, fi);
 		//solve2
-		x = GaussMethod::getSolve(fullX, xHalf);
+		x = GaussMethod::solveTriangle(fullX, xHalf);
+	}
+	return x;
+}
+
+Matrix AltTriang::getSolve(Matrix A, Matrix f, int numIterations)
+{
+	double omega, tau, xi;
+	Matrix R, Rt, B, x(A.gRow(), 1), fi, xHalf;
+	preSolve(omega, tau, xi, R, Rt, A, B);
+	Matrix E = Matrix::createE(A.gRow());
+	Matrix tmp2 = f*tau;
+	Matrix halfX = (E + Rt*omega);
+	Matrix fullX = (E + R*omega);
+	for (int i = 0; i < numIterations; i++)
+	{
+		Matrix tmp0 = B*x, tmp1 = A*x*tau;
+		fi = tmp0 - tmp1 + tmp2;
+		//solve1
+		xHalf = GaussMethod::solveTriangleT(halfX, fi);
+		//solve2
+		x = GaussMethod::solveTriangle(fullX, xHalf);
 	}
 	return x;
 }

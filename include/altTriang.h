@@ -3,9 +3,9 @@
 class AltTriang : public CalculatingMethod
 {
 public:
-	void preSolve(double &omega, double &tau, double &xi, Matrix &R, Matrix &Rt, Matrix &A, Matrix &B);
+	static void preSolve(double &omega, double &tau, double &xi, Matrix &R, Matrix &Rt, Matrix &A, Matrix &B);
 	Matrix solve();
-	Matrix solve(const Matrix &aa, const Matrix &ff, const Matrix &xx, int max);
+	static Matrix getSolve(Matrix A, Matrix f, int numIterations);
 	AltTriang(const Matrix &aa, const Matrix &ff, int max)
 	{
 		A = aa;
@@ -13,14 +13,14 @@ public:
 		maxStep = max;
 	};
 protected:
-	double getGamma1(double delt, double xi);
-	double getGamma2(double delt, double Delt);
-	double getDelt(Matrix &A);
-	double getdelt(Matrix &A);
-	double getXi(double delt, double Delt);
-	double getOmega(double delt, double Delt);
-	double getTau(double gamma1, double gamma2);
-	Matrix getR(Matrix &A);
-	Matrix getRt(Matrix &A);
+	static double getGamma1(double delt, double xi);
+	static double getGamma2(double delt, double Delt);
+	static double getDelt(Matrix &A);
+	static double getdelt(Matrix &A);
+	static double getXi(double delt, double Delt);
+	static double getOmega(double delt, double Delt);
+	static double getTau(double gamma1, double gamma2);
+	static Matrix getR(Matrix &A);
+	static Matrix getRt(Matrix &A);
 private:
 };
