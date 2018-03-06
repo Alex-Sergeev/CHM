@@ -17,7 +17,7 @@ public:
         int i = 1;
         for (string &s : menu)
             cout << i++ << ") " <<s << '\n';
-        cout << exit <<" exit\n\n";
+        cout << "press '" << exit <<"' to exit\n\n";
     }
     void clear()
     {

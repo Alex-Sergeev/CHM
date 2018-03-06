@@ -1,5 +1,8 @@
 #include "menu.h"
+#include "math_function.h"
 using namespace std;
+
+vector<MathFuncton*> functions;
 
 int main()
 {
