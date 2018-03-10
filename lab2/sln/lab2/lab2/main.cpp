@@ -8,7 +8,7 @@ int main()
 {
     Menu menu;
     menu.push_back("set integral");
-    menu.push_back("calculate integral");
+    menu.push_back("calculate integral"); //Ћучше чтобы меню было на русском, а то Ёгаму будет не пон€тно!!!
     while (1)
     {
         menu.print();
