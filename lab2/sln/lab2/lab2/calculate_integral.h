@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <string>
 #include "math_function.h"
 class CalculateIntegral
@@ -27,7 +27,7 @@ public:
     double calculate(MathFuncton &f, double a, double b, double dx) override
     {
         double res = 0;
-        int numPoints = (b - a) / dx + 0.5; //+0.5 серьёзно?
+        int numPoints = (b - a) / dx + 0.5; //+0.5 СЃРµСЂСЊС‘Р·РЅРѕ?
         double x = a + dx;
         for (int i = 0; i < numPoints; i++)
         {
@@ -86,7 +86,7 @@ public:
 		double x = a;
 		for (int i = 0; i < numPoints; i++)
 		{
-			res += (f(x + dx) + f(x)) / 2 * dx; //f(x.i+1)+f(x.i)/2 * (x.i+1 - x.i) Формула метода трапеций С Википедии
+			res += (f(x + dx) + f(x)) / 2 * dx; //f(x.i+1)+f(x.i)/2 * (x.i+1 - x.i) Р¤РѕСЂРјСѓР»Р° РјРµС‚РѕРґР° С‚СЂР°РїРµС†РёР№ РЎ Р’РёРєРёРїРµРґРёРё
 			x += dx;
 		}
 		return res;

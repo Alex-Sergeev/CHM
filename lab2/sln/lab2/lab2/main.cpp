@@ -1,4 +1,4 @@
-#include "menu.h"
+п»ї#include "menu.h"
 #include "math_function.h"
 using namespace std;
 
@@ -8,7 +8,7 @@ int main()
 {
     Menu menu;
     menu.push_back("set integral");
-    menu.push_back("calculate integral"); //Лучше чтобы меню было на русском, а то Эгаму будет не понятно!!!
+    menu.push_back("calculate integral"); //Р›СѓС‡С€Рµ С‡С‚РѕР±С‹ РјРµРЅСЋ Р±С‹Р»Рѕ РЅР° СЂСѓСЃСЃРєРѕРј, Р° С‚Рѕ Р­РіР°РјСѓ Р±СѓРґРµС‚ РЅРµ РїРѕРЅСЏС‚РЅРѕ!!!
     while (1)
     {
         menu.print();
