@@ -16,6 +16,7 @@ public:
 
 class Sinus : MathFuncton
 {
+public:
     Sinus()
     {
         name = "sinus";
@@ -28,6 +29,7 @@ class Sinus : MathFuncton
 
 class Cosinus : MathFuncton
 {
+public:
     Cosinus()
     {
         name = "cosinus";
