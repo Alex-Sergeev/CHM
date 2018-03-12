@@ -36,7 +36,7 @@ void readBorders(double &l, double &r)
 }
 void readSize(int &N, double &dx)
 {
-    cout << "print nubers of points\n";
+    cout << "print numbers of points\n";
     cin >> N;
 }
 
@@ -52,9 +52,16 @@ void init(vector<MathFuncton*> &functions, vector<CalculateIntegral*> &calculate
     functions.push_back((MathFuncton*)msin);
     functions.push_back((MathFuncton*)mcos);
 
-    RightRectangleMethod *rectM = new RightRectangleMethod();
+    RightRectangleMethod *m1 = new RightRectangleMethod();
+    LeftRectangleMethod *m2 = new LeftRectangleMethod();
+    TrapezeMethod *m3 = new TrapezeMethod();
+    Monte_KarloMethod *m4 = new Monte_KarloMethod();
 
-    calculateSchemes.push_back((CalculateIntegral*)rectM);
+
+    calculateSchemes.push_back((CalculateIntegral*)m1);
+    calculateSchemes.push_back((CalculateIntegral*)m2);
+    calculateSchemes.push_back((CalculateIntegral*)m3);
+    calculateSchemes.push_back((CalculateIntegral*)m4);
 }
 
 int main()
