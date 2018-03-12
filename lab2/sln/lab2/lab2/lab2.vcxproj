@@ -142,9 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="calculate_integral.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="math_function.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculate_integral.h" />

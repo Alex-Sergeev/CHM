@@ -1,1 +1,0 @@
-#include "calculate_integral.h"
