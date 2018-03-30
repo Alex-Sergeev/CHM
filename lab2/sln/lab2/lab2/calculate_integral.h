@@ -131,3 +131,31 @@ public:
 		return res;
 	}
 };
+
+class Gauss_Method : CalculateIntegral
+{
+public:
+	Gauss_Method()
+	{
+		name = "gauss method";
+	}
+	double calculate(MathFuncton *f, double a, double b, int numPoints) override
+	{
+		double dx = (b - a) / (numPoints - 1);
+		return calculate(f, a, b, dx);
+	}
+
+	double calculate(MathFuncton *f, double a, double b, double dx) override
+	{
+		double res = 0;
+		int numPoints = rounding((b - a) / dx);
+		double x = a;
+
+		for (int i = 0; i < numPoints; i++)
+		{
+			res += dx / 2 * ((*f)(((x + x + dx) / 2) - dx / 2 * sqrt(3)) + (*f)(((x + x + dx) / 2) + dx / 2 * sqrt(3)));
+			x += dx;
+		}
+		return res;
+	}
+};

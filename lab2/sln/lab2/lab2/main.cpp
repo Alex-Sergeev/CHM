@@ -56,12 +56,13 @@ void init(vector<MathFuncton*> &functions, vector<CalculateIntegral*> &calculate
     LeftRectangleMethod *m2 = new LeftRectangleMethod();
     TrapezeMethod *m3 = new TrapezeMethod();
     Monte_KarloMethod *m4 = new Monte_KarloMethod();
-
+	Gauss_Method *m5 = new Gauss_Method();
 
     calculateSchemes.push_back((CalculateIntegral*)m1);
     calculateSchemes.push_back((CalculateIntegral*)m2);
     calculateSchemes.push_back((CalculateIntegral*)m3);
     calculateSchemes.push_back((CalculateIntegral*)m4);
+	calculateSchemes.push_back((CalculateIntegral*)m5);
 }
 
 int main()
