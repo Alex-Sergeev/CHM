@@ -13,11 +13,18 @@ struct CalculateInfo
 	double a, b;
 	double dx;
 	int N;
-
 	double calculate()
 	{
 		return calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N);
 	}
+
+private:
+	bool isFunction = false;
+	bool isCalculateScheme = false;
+	bool isA = false;
+	bool isB = false;
+	bool isDx = false;
+	bool isN = false;
 };
 
 void printFunctions(const CalculateInfo &calculateInfo)
