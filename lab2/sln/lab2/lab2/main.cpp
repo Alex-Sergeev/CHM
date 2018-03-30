@@ -29,7 +29,7 @@ void readScheme(int &scheme, const vector<CalculateIntegral*> &calculateSchemes)
     printCalculateSchemes(calculateSchemes);
     cin >> scheme;
 }
-void readBorders(double &l, double &r)
+void readLimits(double &l, double &r)
 {
     cout << "print left and right borders:\n";
     cin >> l >> r;
@@ -48,9 +48,9 @@ bool isReady(int function, int calculateScheme, double a, double b, double dx, i
 void init(vector<MathFuncton*> &functions, vector<CalculateIntegral*> &calculateSchemes)
 {
     Sinus *msin = new Sinus();
-    Cosinus* mcos = new Cosinus;
-    functions.push_back((MathFuncton*)msin);
-    functions.push_back((MathFuncton*)mcos);
+    Cosinus* mcos = new Cosinus();
+	LinearFuncton* mlf = new LinearFuncton();
+	functions = { (MathFuncton*)msin , (MathFuncton*)mcos, (MathFuncton*)mlf };
 
     RightRectangleMethod *m1 = new RightRectangleMethod();
     LeftRectangleMethod *m2 = new LeftRectangleMethod();
@@ -58,11 +58,8 @@ void init(vector<MathFuncton*> &functions, vector<CalculateIntegral*> &calculate
     Monte_KarloMethod *m4 = new Monte_KarloMethod();
 	Gauss_Method *m5 = new Gauss_Method();
 
-    calculateSchemes.push_back((CalculateIntegral*)m1);
-    calculateSchemes.push_back((CalculateIntegral*)m2);
-    calculateSchemes.push_back((CalculateIntegral*)m3);
-    calculateSchemes.push_back((CalculateIntegral*)m4);
-	calculateSchemes.push_back((CalculateIntegral*)m5);
+	calculateSchemes = { (CalculateIntegral*)m1, (CalculateIntegral*)m2, 
+		(CalculateIntegral*)m3, (CalculateIntegral*)m4, (CalculateIntegral*)m5 };
 }
 
 int main()
@@ -79,8 +76,11 @@ int main()
 
     init(functions, calculateSchemes);
 
-    menu.push_back("set integral");
     menu.push_back("calculate integral"); //Лучше чтобы меню было на русском, а то Эгаму будет не понятно!!!
+	menu.push_back("set integral");
+	menu.push_back("set function");
+	menu.push_back("set limit of integration");
+	menu.push_back("set num point");
     while (1)
     {
         menu.print();
@@ -91,18 +91,34 @@ int main()
         }
         else if (menu.choice == "1")
         {
-            readFunction(function, functions);
-            readBorders(a, b);
-            readScheme(calculateScheme, calculateSchemes);
-            readSize(N, dx);
+			if (isReady(function, calculateScheme, a, b, dx, N))
+			{
+				cout << calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N) << '\n';
+			}
         }
         else if (menu.choice == "2")
         {
-            if (isReady(function, calculateScheme, a, b, dx, N))
-            {
-                cout << calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N)<<'\n';
-            }
+			readFunction(function, functions);
+			readLimits(a, b);
+			readScheme(calculateScheme, calculateSchemes);
+			readSize(N, dx);           
         }
+		else if (menu.choice == "3")
+		{
+			readFunction(function, functions);
+		}
+		else if (menu.choice == "4")
+		{
+			readLimits(a, b);
+		}
+		else if (menu.choice == "5")
+		{
+			readScheme(calculateScheme, calculateSchemes);
+		}
+		else if (menu.choice == "6")
+		{
+			readSize(N, dx);
+		}
         else
         {
             menu.clear();
