@@ -13,12 +13,52 @@ struct CalculateInfo
 	double a, b;
 	double dx;
 	int N;
+
 	double calculate()
 	{
 		return calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N);
 	}
+    double calculateExactly()
+    {
+        if (function == 0)
+        {
+            return cos(a) - cos(b);
+        }
+        else if (function == 1)
+        {
+            return (sin(b) - sin(a));
+        }
+        else if (function == 2)
+        {
+            return (b*b/2 - a*a/2);
+        }
+        return 0;
+    }
+    bool isReady()
+    {
+        return (isFunction & isCalculateScheme & isA & isB & isDx & isN);
+    }
+    void printStatus()
+    {
+        if (!isFunction)
+            cout << "set the function \n";
+        else
+            cout << "function is " << functions[function]->getName()<<"\n";
+        if (!isCalculateScheme)
+            cout << "set the calculate scheme \n";
+        else
+            cout << "calculate scheme is " << calculateSchemes[calculateScheme]->getName() << "\n";
+        if (!isA || !isB)
+            cout << "set the limits \n";
+        else
+            cout << "left limit is " <<a<<"right limit is "<<b<<"\n";
+        if (!isDx || ! isN)
+            cout << "set the number of points \n";
+        else
+            cout << "number of points is " << N << "dx is" << dx << "\n";
+        cout << "\n";
+    }
 
-private:
 	bool isFunction = false;
 	bool isCalculateScheme = false;
 	bool isA = false;
@@ -46,27 +86,33 @@ void readFunction(CalculateInfo &calculateInfo)
     cout << "Choice the function:\n";
     printFunctions(calculateInfo);
     cin >> calculateInfo.function;
+    calculateInfo.isFunction = true;
 }
 void readScheme(CalculateInfo &calculateInfo)
 {
     cout << "Choice the calculate scheme:\n";
     printCalculateSchemes(calculateInfo);
     cin >> calculateInfo.calculateScheme;
+    calculateInfo.isCalculateScheme = true;
 }
 void readLimits(CalculateInfo &calculateInfo)
 {
     cout << "print left and right borders:\n";
     cin >> calculateInfo.a >> calculateInfo.b;
+    calculateInfo.isA = true;
+    calculateInfo.isB = true;
 }
 void readSize(CalculateInfo &calculateInfo)
 {
     cout << "print numbers of points\n";
     cin >> calculateInfo.N;
+    calculateInfo.isN = true;
+    calculateInfo.isDx = true;
 }
 
 bool isReady(CalculateInfo &calculateInfo)
 {
-    return true;
+    return calculateInfo.isReady();
 }
 
 void init(CalculateInfo &calculateInfo)
@@ -94,11 +140,12 @@ int main()
     init(calculateInfo);
 
     menu.push_back("calculate integral"); //Лучше чтобы меню было на русском, а то Эгаму будет не понятно!!!
-	menu.push_back("set integral");
+	menu.push_back("set integral (set all)");
 	menu.push_back("set function");
 	menu.push_back("set limit of integration");
 	menu.push_back("set scheme");
 	menu.push_back("set num point");
+    menu.push_back("print status");
     while (1)
     {
         menu.print();
@@ -112,8 +159,17 @@ int main()
 			if (isReady(calculateInfo))
 			{
 				menu.clear();
-				cout << calculateInfo.calculate() << '\n';
+                double res = calculateInfo.calculate();
+                cout << res << "\n";
+                double exactlyRes = calculateInfo.calculateExactly();
+                cout << "the exact value of the integral is " << exactlyRes << "\n";
+                cout << "error is " << exactlyRes - res << "\n\n";             
 			}
+            else
+            {
+                menu.clear();
+                calculateInfo.printStatus();
+            }
         }
         else if (menu.choice == "2")
         {
@@ -121,23 +177,33 @@ int main()
 			readLimits(calculateInfo);
 			readScheme(calculateInfo);
 			readSize(calculateInfo);
+            menu.clear();
         }
 		else if (menu.choice == "3")
 		{
 			readFunction(calculateInfo);
+            menu.clear();
 		}
 		else if (menu.choice == "4")
 		{
 			readLimits(calculateInfo);
+            menu.clear();
 		}
 		else if (menu.choice == "5")
 		{
 			readScheme(calculateInfo);
+            menu.clear();
 		}
 		else if (menu.choice == "6")
 		{
 			readSize(calculateInfo);
+            menu.clear();
 		}
+        else if (menu.choice == "7")
+        {
+            menu.clear();
+            calculateInfo.printStatus();
+        }
         else
         {
             menu.clear();
