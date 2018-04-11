@@ -159,3 +159,33 @@ public:
 		return res;
 	}
 };
+
+class Simpson_Method : CalculateIntegral
+{
+public:
+    Simpson_Method()
+    {
+        name = "simpson_Method";
+    }
+    double calculate(MathFuncton *f, double a, double b, int numPoints) override
+    {
+        double res = 0.0;
+        double h = (b - a) / numPoints;
+        double x1 = a, x2 = a + h, x3 = a + 2*h;
+        for (int i = 0; i < numPoints - 1; i+= 2)
+        {           
+            res += (*f)(x1);
+            res += 4.0*(*f)(x2);
+            res += (*f)(x3);
+
+            x1 += 2*h;
+            x2 += 2*h;
+            x3 += 2*h;
+        }
+        return res * h / 3.0;
+    }
+    double calculate(MathFuncton *f, double a, double b, double dx) override
+    {
+        return 0.0;
+    }
+};

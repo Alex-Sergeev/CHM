@@ -127,9 +127,10 @@ void init(CalculateInfo &calculateInfo)
     TrapezeMethod *m3 = new TrapezeMethod();
     Monte_KarloMethod *m4 = new Monte_KarloMethod();
 	Gauss_Method *m5 = new Gauss_Method();
+    Simpson_Method *m6 = new Simpson_Method();
 
 	calculateInfo.calculateSchemes = { (CalculateIntegral*)m1, (CalculateIntegral*)m2,
-		(CalculateIntegral*)m3, (CalculateIntegral*)m4, (CalculateIntegral*)m5 };
+		(CalculateIntegral*)m3, (CalculateIntegral*)m4, (CalculateIntegral*)m5, (CalculateIntegral*)m6};
 }
 
 int main()
