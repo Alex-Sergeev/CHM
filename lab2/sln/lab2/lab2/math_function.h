@@ -41,3 +41,16 @@ public:
     }
 };
 
+class LinearFuncton : MathFuncton
+{
+public:
+	LinearFuncton()
+	{
+		name = "linear functon";
+	}
+	double operator() (double x) override
+	{
+		return x;
+	}
+};
+

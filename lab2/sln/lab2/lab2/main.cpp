@@ -3,84 +3,150 @@
 #include "calculate_integral.h"
 using namespace std;
 
-void printFunctions(const vector<MathFuncton*> &functions)
+struct CalculateInfo
 {
-    for (int i = 0; i < functions.size(); i++)
+	vector<MathFuncton*> functions;
+	vector<CalculateIntegral*> calculateSchemes;
+
+	int function;
+	int calculateScheme;
+	double a, b;
+	double dx;
+	int N;
+
+	double calculate()
+	{
+		return calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N);
+	}
+    double calculateExactly()
     {
-        cout << i << ' ' << functions[i]->getName()<<'\n';
+        if (function == 0)
+        {
+            return cos(a) - cos(b);
+        }
+        else if (function == 1)
+        {
+            return (sin(b) - sin(a));
+        }
+        else if (function == 2)
+        {
+            return (b*b/2 - a*a/2);
+        }
+        return 0;
+    }
+    bool isReady()
+    {
+        return (isFunction & isCalculateScheme & isA & isB & isDx & isN);
+    }
+    void printStatus()
+    {
+        if (!isFunction)
+            cout << "set the function \n";
+        else
+            cout << "function is " << functions[function]->getName()<<"\n";
+        if (!isCalculateScheme)
+            cout << "set the calculate scheme \n";
+        else
+            cout << "calculate scheme is " << calculateSchemes[calculateScheme]->getName() << "\n";
+        if (!isA || !isB)
+            cout << "set the limits \n";
+        else
+            cout << "left limit is " <<a<<"right limit is "<<b<<"\n";
+        if (!isDx || ! isN)
+            cout << "set the number of points \n";
+        else
+            cout << "number of points is " << N << "dx is" << dx << "\n";
+        cout << "\n";
+    }
+
+	bool isFunction = false;
+	bool isCalculateScheme = false;
+	bool isA = false;
+	bool isB = false;
+	bool isDx = false;
+	bool isN = false;
+};
+
+void printFunctions(const CalculateInfo &calculateInfo)
+{
+    for (int i = 0; i < calculateInfo.functions.size(); i++)
+    {
+        cout << i << ' ' << calculateInfo.functions[i]->getName()<<'\n';
     }
 }
-void printCalculateSchemes(const vector<CalculateIntegral*> &calculateSchemes)
+void printCalculateSchemes(const CalculateInfo &calculateInfo)
 {
-    for (int i = 0; i < calculateSchemes.size(); i++)
+    for (int i = 0; i < calculateInfo.calculateSchemes.size(); i++)
     {
-        cout << i << ' ' << calculateSchemes[i]->getName() << '\n';
+        cout << i << ' ' << calculateInfo.calculateSchemes[i]->getName() << '\n';
     }
 }
-void readFunction(int &f, const vector<MathFuncton*> &functions)
+void readFunction(CalculateInfo &calculateInfo)
 {
     cout << "Choice the function:\n";
-    printFunctions(functions);
-    cin >> f;
+    printFunctions(calculateInfo);
+    cin >> calculateInfo.function;
+    calculateInfo.isFunction = true;
 }
-void readScheme(int &scheme, const vector<CalculateIntegral*> &calculateSchemes)
+void readScheme(CalculateInfo &calculateInfo)
 {
     cout << "Choice the calculate scheme:\n";
-    printCalculateSchemes(calculateSchemes);
-    cin >> scheme;
+    printCalculateSchemes(calculateInfo);
+    cin >> calculateInfo.calculateScheme;
+    calculateInfo.isCalculateScheme = true;
 }
-void readBorders(double &l, double &r)
+void readLimits(CalculateInfo &calculateInfo)
 {
     cout << "print left and right borders:\n";
-    cin >> l >> r;
+    cin >> calculateInfo.a >> calculateInfo.b;
+    calculateInfo.isA = true;
+    calculateInfo.isB = true;
 }
-void readSize(int &N, double &dx)
+void readSize(CalculateInfo &calculateInfo)
 {
     cout << "print numbers of points\n";
-    cin >> N;
+    cin >> calculateInfo.N;
+    calculateInfo.isN = true;
+    calculateInfo.isDx = true;
 }
 
-bool isReady(int function, int calculateScheme, double a, double b, double dx, int N)
+bool isReady(CalculateInfo &calculateInfo)
 {
-    return true;
+    return calculateInfo.isReady();
 }
 
-void init(vector<MathFuncton*> &functions, vector<CalculateIntegral*> &calculateSchemes)
+void init(CalculateInfo &calculateInfo)
 {
     Sinus *msin = new Sinus();
-    Cosinus* mcos = new Cosinus;
-    functions.push_back((MathFuncton*)msin);
-    functions.push_back((MathFuncton*)mcos);
+    Cosinus* mcos = new Cosinus();
+	LinearFuncton* mlf = new LinearFuncton();
+	calculateInfo.functions = { (MathFuncton*)msin , (MathFuncton*)mcos, (MathFuncton*)mlf };
 
     RightRectangleMethod *m1 = new RightRectangleMethod();
     LeftRectangleMethod *m2 = new LeftRectangleMethod();
     TrapezeMethod *m3 = new TrapezeMethod();
     Monte_KarloMethod *m4 = new Monte_KarloMethod();
 	Gauss_Method *m5 = new Gauss_Method();
+    Simpson_Method *m6 = new Simpson_Method();
 
-    calculateSchemes.push_back((CalculateIntegral*)m1);
-    calculateSchemes.push_back((CalculateIntegral*)m2);
-    calculateSchemes.push_back((CalculateIntegral*)m3);
-    calculateSchemes.push_back((CalculateIntegral*)m4);
-	calculateSchemes.push_back((CalculateIntegral*)m5);
+	calculateInfo.calculateSchemes = { (CalculateIntegral*)m1, (CalculateIntegral*)m2,
+		(CalculateIntegral*)m3, (CalculateIntegral*)m4, (CalculateIntegral*)m5, (CalculateIntegral*)m6};
 }
 
 int main()
 {
     Menu menu;
-    vector<MathFuncton*> functions;
-    vector<CalculateIntegral*> calculateSchemes;
+	CalculateInfo calculateInfo;
 
-    int function;
-    int calculateScheme;
-    double a, b;
-    double dx;
-    int N;
+    init(calculateInfo);
 
-    init(functions, calculateSchemes);
-
-    menu.push_back("set integral");
     menu.push_back("calculate integral"); //Лучше чтобы меню было на русском, а то Эгаму будет не понятно!!!
+	menu.push_back("set integral (set all)");
+	menu.push_back("set function");
+	menu.push_back("set limit of integration");
+	menu.push_back("set scheme");
+	menu.push_back("set num point");
+    menu.push_back("print status");
     while (1)
     {
         menu.print();
@@ -91,17 +157,53 @@ int main()
         }
         else if (menu.choice == "1")
         {
-            readFunction(function, functions);
-            readBorders(a, b);
-            readScheme(calculateScheme, calculateSchemes);
-            readSize(N, dx);
+			if (isReady(calculateInfo))
+			{
+				menu.clear();
+                double res = calculateInfo.calculate();
+                cout << res << "\n";
+                double exactlyRes = calculateInfo.calculateExactly();
+                cout << "the exact value of the integral is " << exactlyRes << "\n";
+                cout << "error is " << exactlyRes - res << "\n\n";             
+			}
+            else
+            {
+                menu.clear();
+                calculateInfo.printStatus();
+            }
         }
         else if (menu.choice == "2")
         {
-            if (isReady(function, calculateScheme, a, b, dx, N))
-            {
-                cout << calculateSchemes[calculateScheme]->calculate(functions[function], a, b, N)<<'\n';
-            }
+			readFunction(calculateInfo);
+			readLimits(calculateInfo);
+			readScheme(calculateInfo);
+			readSize(calculateInfo);
+            menu.clear();
+        }
+		else if (menu.choice == "3")
+		{
+			readFunction(calculateInfo);
+            menu.clear();
+		}
+		else if (menu.choice == "4")
+		{
+			readLimits(calculateInfo);
+            menu.clear();
+		}
+		else if (menu.choice == "5")
+		{
+			readScheme(calculateInfo);
+            menu.clear();
+		}
+		else if (menu.choice == "6")
+		{
+			readSize(calculateInfo);
+            menu.clear();
+		}
+        else if (menu.choice == "7")
+        {
+            menu.clear();
+            calculateInfo.printStatus();
         }
         else
         {
